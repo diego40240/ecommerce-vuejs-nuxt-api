@@ -1,10 +1,18 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 const props = defineProps({
   paddingX: String,
   oldCategoria: String,
   productos: Object,
 });
+
+const mostrarViewAll = ref(false);
+
+const alturaGridProductos = computed(() => {
+  return mostrarViewAll.value ? "max-h-[2000px]" : "max-h-[291px] ";
+});
+
+onMounted(() => {});
 </script>
 <template>
   <section :class="[props.paddingX]" class="flex flex-col gap-5">
@@ -12,14 +20,21 @@ const props = defineProps({
       class="flex items-center justify-between border-b-[1px] border-b-border"
     >
       <h2
-        class="relative py-4 text-2xl font-bold text-ctext after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:rounded-lg after:bg-primary"
+        class="relative py-4 font-bold text-ctext after:absolute after:bottom-0 after:left-0 after:h-1 after:w-full after:rounded-lg after:bg-primary sm:text-2xl"
       >
         Grab the best deal on
         <b class="capitalize text-primary">{{ props.oldCategoria }}</b>
       </h2>
-      <button
-        type="button"
-        class="flex items-center justify-center gap-4 text-base font-medium capitalize text-heading"
+      <input
+        type="checkbox"
+        name="viewAll"
+        id="viewAll"
+        hidden
+        v-model="mostrarViewAll"
+      />
+      <label
+        for="viewAll"
+        class="flex cursor-pointer items-center justify-center gap-4 font-medium capitalize text-heading max-sm:hidden max-sm:text-sm"
       >
         <span>View all</span>
         <div class="flex h-3 w-3 items-center justify-center">
@@ -33,10 +48,14 @@ const props = defineProps({
             />
           </svg>
         </div>
-      </button>
+      </label>
     </div>
     <!-- grid-cols-autofit -->
-    <div class="grid grid-cols-[repeat(auto-fit,minmax(224px,1fr))] gap-4">
+    <div
+      role="gridProductos"
+      class="grid grid-cols-[repeat(auto-fit,minmax(224px,1fr))] gap-4 overflow-hidden duration-300"
+      :class="alturaGridProductos"
+    >
       <article
         class="rounded-xl border-[1px] border-border"
         v-for="producto in productos"
@@ -46,8 +65,7 @@ const props = defineProps({
           <img
             class="h-full w-full object-contain"
             :src="producto.image"
-            alt=""
-            srcset=""
+            :alt="producto.title"
           />
         </div>
         <div class="flex flex-col p-3">

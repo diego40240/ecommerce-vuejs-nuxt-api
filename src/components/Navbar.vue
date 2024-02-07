@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, defineProps } from "vue";
+import { ref, onMounted } from "vue";
 const props = defineProps({
   paddingX: String,
   oldCategoria: String,
@@ -111,11 +111,16 @@ onMounted(() => {
     </div>
   </nav>
   <div
-    class="flex items-center justify-start overflow-hidden duration-300"
-    :class="[props.paddingX, btnMenuBar ? 'h-16' : 'h-0']"
+    class="z-20 flex items-center justify-start overflow-hidden rounded-br-md border-b-[1px] border-b-border bg-white duration-300 max-md:absolute max-md:min-w-fit max-md:max-w-full max-md:border-r-[1px] max-md:border-r-border max-md:py-3"
+    :class="[
+      props.paddingX,
+      btnMenuBar
+        ? 'max-md:-translate-x-0 md:h-16'
+        : 'max-md:-translate-x-full md:h-0',
+    ]"
   >
     <ul
-      class="flex items-center justify-center gap-4 text-sm font-medium capitalize"
+      class="flex gap-4 text-sm font-medium capitalize max-md:flex-col max-md:gap-3 md:items-center"
     >
       <button
         class="flex cursor-pointer items-center justify-center gap-2 rounded-2xl bg-background_3 px-4 py-2 text-heading"
