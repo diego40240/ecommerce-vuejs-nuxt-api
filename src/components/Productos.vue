@@ -9,7 +9,7 @@ const props = defineProps({
 const mostrarViewAll = ref(false);
 
 const alturaGridProductos = computed(() => {
-  return mostrarViewAll.value ? "max-h-[2000px]" : "max-h-[291px] ";
+  return mostrarViewAll.value ? "max-h-[2000px]" : "max-h-[307px] ";
 });
 
 onMounted(() => {});
@@ -34,12 +34,14 @@ onMounted(() => {});
       />
       <label
         for="viewAll"
-        class="flex cursor-pointer items-center justify-center gap-4 font-medium capitalize text-heading max-sm:hidden max-sm:text-sm"
+        class="flex cursor-pointer items-center justify-center gap-4 rounded-lg p-2 font-medium capitalize text-heading hover:bg-background_3 max-sm:hidden max-sm:text-sm"
+        :class="mostrarViewAll ? 'bg-background_3' : ''"
       >
         <span>View all</span>
         <div class="flex h-3 w-3 items-center justify-center">
           <svg
-            class="fill-primary"
+            class="fill-primary duration-300"
+            :class="mostrarViewAll ? 'rotate-90' : ''"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 320 512"
           >
@@ -57,7 +59,7 @@ onMounted(() => {});
       :class="alturaGridProductos"
     >
       <article
-        class="rounded-xl border-[1px] border-border"
+        class="cursor-pointer rounded-xl border-[1px] border-border hover:border-primary hover:shadow-lg"
         v-for="producto in productos"
         :key="producto.id"
       >

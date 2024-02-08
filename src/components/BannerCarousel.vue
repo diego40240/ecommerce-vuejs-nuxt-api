@@ -11,6 +11,16 @@ const props = defineProps({
 const imagenes = ref([banner_1, banner_2, banner_3]);
 const countImagen = ref(0);
 
+onNuxtReady(async () => {
+  setInterval(() => {
+    if (countImagen.value < imagenes.value.length - 1) {
+      countImagen.value++;
+    } else {
+      countImagen.value = 0;
+    }
+  }, 2000);
+});
+
 const carouselTranslate = computed(() => {
   // return `-translate-x-[${countImagen.value * 100}%]`;
   return `translate: -${countImagen.value * 100}%`;
@@ -38,7 +48,7 @@ function moverCarousel(direccion) {
       class="lg:px-30 absolute left-0 z-10 flex w-full items-center justify-between max-md:px-1 md:px-10 lg:px-[88px]"
     >
       <button
-        class="flex h-20 w-20 items-center justify-center rounded-full border-[8px] border-white bg-background_3 max-md:h-7 max-md:w-7 max-md:border-[3px]"
+        class="flex h-20 w-20 items-center justify-center rounded-full border-[8px] border-white bg-background_3 hover:shadow-inner max-md:h-7 max-md:w-7 max-md:border-[3px]"
         type="button"
         @click="moverCarousel('left')"
       >
@@ -53,7 +63,7 @@ function moverCarousel(direccion) {
         </svg>
       </button>
       <button
-        class="flex h-20 w-20 items-center justify-center rounded-full border-[8px] border-white bg-background_3 max-md:h-7 max-md:w-7 max-md:border-[3px]"
+        class="flex h-20 w-20 items-center justify-center rounded-full border-[8px] border-white bg-background_3 hover:shadow-inner max-md:h-7 max-md:w-7 max-md:border-[3px]"
         type="button"
         @click="moverCarousel('right')"
       >

@@ -17,6 +17,7 @@ export default {
         background_1: "#F5F5F5",
         background_3: "#F3F9FB",
         border: "#EDEDED",
+        line: "#D9D9D9",
       },
       gridTemplateColumns: {
         // Simple 16 column grid

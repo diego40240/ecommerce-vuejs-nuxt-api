@@ -29,7 +29,7 @@ function getCategorias() {
 const activarCategoria = (categoria) => {
   return props.oldCategoria === categoria
     ? "bg-primary text-white"
-    : "text-heading bg-background_3";
+    : "text-heading bg-background_3 hover:bg-primary hover:bg-opacity-65 hover:text-white";
 };
 
 onMounted(() => {
@@ -61,7 +61,7 @@ onMounted(() => {
             />
           </svg>
         </div>
-        <div v-else class="h-12 w-12 p-3">
+        <div v-else class="h-12 w-12 rounded-lg p-3 hover:bg-background_3">
           <svg
             class="fill-primary"
             xmlns="http://www.w3.org/2000/svg"
