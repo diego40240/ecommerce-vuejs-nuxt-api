@@ -18,7 +18,7 @@ onNuxtReady(async () => {
     } else {
       countImagen.value = 0;
     }
-  }, 2000);
+  }, 3000);
 });
 
 const carouselTranslate = computed(() => {
@@ -78,7 +78,7 @@ function moverCarousel(direccion) {
         </svg>
       </button>
     </div>
-    <div class="flex flex-nowrap overflow-hidden">
+    <div class="flex flex-nowrap overflow-hidden rounded-3xl">
       <img
         class="min-w-full object-contain duration-300"
         :style="carouselTranslate"

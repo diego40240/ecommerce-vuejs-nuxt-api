@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import oferta_1 from "@/src/assets/img/oferta_1.jpg";
 import oferta_2 from "@/src/assets/img/oferta_2.jpg";
 import oferta_3 from "@/src/assets/img/oferta_3.jpg";
@@ -18,29 +18,34 @@ const imagenes = ref([
   oferta_6,
 ]);
 const posicionCarousel = ref(0);
-onNuxtReady(async () => {
+onNuxtReady(() => {
   setInterval(() => {
     if (posicionCarousel.value < imagenes.value.length - 1) {
       posicionCarousel.value++;
     } else {
       posicionCarousel.value = 0;
     }
-  }, 2000);
+  }, 3000);
 });
 
 const cambioPosicion = computed(() => {
-  const label = document.querySelector(`#label_${posicionCarousel.value}`);
-  const labelClass = document.querySelector("label.bg-primary");
+  return `translate: -${posicionCarousel.value * 100}%`;
+});
+
+// Observar cambios en posicionCarousel
+watch(posicionCarousel, (newValue, oldValue) => {
+  const label = document.querySelector(`#label_${newValue}`);
+  const labelClass = document.querySelector(`#label_${oldValue}`);
+
   if (labelClass) {
     labelClass.classList.remove("bg-primary", "w-6");
     labelClass.classList.add("bg-line");
   }
+
   if (label) {
     label.classList.remove("bg-line");
     label.classList.add("bg-primary", "w-6");
   }
-
-  return `translate: -${posicionCarousel.value * 100}%`;
 });
 </script>
 <template>
@@ -55,9 +60,9 @@ const cambioPosicion = computed(() => {
         <b class="capitalize text-primary">Brands</b>
       </h2>
     </div>
-    <div class="flex flex-nowrap overflow-hidden">
+    <div class="flex flex-nowrap overflow-hidden rounded-3xl">
       <img
-        class="min-w-full object-contain duration-300"
+        class="min-w-full rounded-3xl object-cover duration-300"
         :style="cambioPosicion"
         v-for="(imagen, index) in imagenes"
         :key="index"

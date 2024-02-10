@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { getCategorias } from "@/src/helpers/funcionProductos";
 const props = defineProps({
   paddingX: String,
   oldCategoria: String,
@@ -10,14 +11,16 @@ const btnMenuBar = ref(false);
 
 const categorias = ref([]);
 
-function getCategorias() {
-  const responseCategorias = fetch(
-    "https://fakestoreapi.com/products/categories",
-  )
-    .then((responseCategorias) => responseCategorias.json())
-    .then((data) => (categorias.value = data));
+// function getCategorias() {
+//   const responseCategorias = fetch(
+//     "https://fakestoreapi.com/products/categories",
+//   )
+//     .then((responseCategorias) => responseCategorias.json())
+//     .then((data) => (categorias.value = data));
+// }
+async function getDatosCategorias() {
+  categorias.value = await getCategorias();
 }
-
 // const activarCategoria = computed(() => {
 //   return (oldCategoria, categoria) => {
 //     return oldCategoria === categoria
@@ -33,7 +36,8 @@ const activarCategoria = (categoria) => {
 };
 
 onMounted(() => {
-  getCategorias();
+  // getCategorias();
+  getDatosCategorias();
 });
 </script>
 <template>
